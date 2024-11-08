@@ -1,0 +1,50 @@
+{% extends 'base_2.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="text-center">
+                        <i class="fas fa-plus-circle"></i> Crear Nuevo Recurso
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Código</label>
+                                {{ form.code }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombre</label>
+                                {{ form.name }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tipo de Recurso</label>
+                                {{ form.resource_type }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Estado</label>
+                                {{ form.status }}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Prioridad</label>
+                            {{ form.priority }}
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Guardar Recurso
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

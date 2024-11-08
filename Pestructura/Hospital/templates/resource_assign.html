@@ -1,0 +1,64 @@
+{% extends 'base_2.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    Asignación de Recurso Médico
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Recurso</label>
+                            {{ form.resource }}
+                            {% if form.resource.errors %}
+                                <div class="text-danger">
+                                    {{ form.resource.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Paciente</label>
+                            {{ form.patient }}
+                            {% if form.patient.errors %}
+                                <div class="text-danger">
+                                    {{ form.patient.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Prioridad</label>
+                            {{ form.priority }}
+                            {% if form.priority.errors %}
+                                <div class="text-danger">
+                                    {{ form.priority.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de Asignación</label>
+                            {{ form.assignment_date }}
+                            {% if form.assignment_date.errors %}
+                                <div class="text-danger">
+                                    {{ form.assignment_date.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            Asignar Recurso
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

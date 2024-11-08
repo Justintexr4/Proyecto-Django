@@ -1,0 +1,91 @@
+{% extends 'base_2.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5>Total Recursos</h5>
+                    <h2>{{ total_resources }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5>Recursos Disponibles</h5>
+                    <h2>{{ available_resources }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5>Recursos en Uso</h5>
+                    <h2>{{ used_resources }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gráficos y estadísticas -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Distribución de Recursos</div>
+                <div class="card-body">
+                    <!-- Aquí va un gráfico de distribución -->
+                    <canvas id="resourceDistribution"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Historial de Asignaciones</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Recurso</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in recent_logs %}
+                            <tr>
+                                <td>{{ log.resource.name }}</td>
+                                <td>{{ log.user.username }}</td>
+                                <td>{{ log.timestamp }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Código para gráficos
+    var ctx = document.getElementById('resourceDistribution').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Disponibles', 'En Uso', 'Mantenimiento'],
+            datasets: [{
+                data: [
+                    {{ available_resources }}, 
+                    {{ used_resources }}, 
+                    {{ maintenance_resources }}
+                ],
+                backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+            }]
+        }
+    });
+</script>
+{% endblock %}
